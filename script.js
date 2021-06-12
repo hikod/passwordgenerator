@@ -14,7 +14,6 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
-  clearPasswordText;
   var lowerCase = "abcdefghijklmnopqrstuvwxyz";
   var upperCase = lowerCase.toUpperCase();
   var number = "1234567890";
