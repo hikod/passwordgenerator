@@ -55,6 +55,9 @@ function generatePassword() {
     if (str === "special characters" && answer) {
       finalConcatinatedPwd = finalConcatinatedPwd.concat(specialChar);
     }
+
+    /**this piece of code is checking 
+     * if one character type should be selected */
     if (!answer) {
       count++;
       if (count === questionArr.length) {
