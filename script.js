@@ -3,9 +3,8 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
+  var password = generatePassword();
   passwordText.value = password;
 
 }
@@ -18,7 +17,8 @@ function generatePassword() {
   var upperCase = lowerCase.toUpperCase();
   var number = "1234567890";
   var specialChar = "!@#$%^&*(){}[]=<>/,.";
-  var concatinated = "";
+  var finalConcatinatedPwd = "";
+
   var length = prompt("Please enter your desired password length");
 
   /**
@@ -36,34 +36,34 @@ function generatePassword() {
   var questionArr = ["lowercase", "uppercase", "numeric", "special characters"];
 /**
  * the user will be asked whether 
- * they want the options in the above array 
+ * they want the options in the array above 
  * in the password while generating
  */
   questionArr.forEach((str) => {
     var answer = confirm("Please tell me if you would like your password to have " + str);
-    if (str === "lowercase" & answer) {
-      concatinated = concatinated.concat(lowerCase);
+    if (str === "lowercase" && answer) {
+      finalConcatinatedPwd = finalConcatinatedPwd.concat(lowerCase);
     }
-    if (str === "uppercase" & answer) {
-      concatinated = concatinated.concat(upperCase);
+    if (str === "uppercase" && answer) {
+      finalConcatinatedPwd = finalConcatinatedPwd.concat(upperCase);
     }
-    if (str === "numeric" & answer) {
-      concatinated = concatinated.concat(number);
+    if (str === "numeric" && answer) {
+      finalConcatinatedPwd = finalConcatinatedPwd.concat(number);
     }
-    if (str === "special characters" & answer) {
-      concatinated = concatinated.concat(specialChar);
+    if (str === "special characters" && answer) {
+      finalConcatinatedPwd = finalConcatinatedPwd.concat(specialChar);
     }
   })
 
 
-  return randomPasswordWithLength(length, concatinated);
+  return randomPasswordWithLength(length, finalConcatinatedPwd);
 }
 
 
 /**
  * 
  * @param {*desired password length} length 
- * @param {*concatinated string} chars 
+ * @param {*finalConcatinatedPwd string} chars 
  * @returns 
  */
 function randomPasswordWithLength(length, chars) {
@@ -72,3 +72,4 @@ function randomPasswordWithLength(length, chars) {
     result += chars[Math.floor(Math.random() * chars.length)];
   return result;
 }
+
