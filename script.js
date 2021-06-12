@@ -40,7 +40,6 @@ function generatePassword() {
    * in the password while generating
    */
 
-  var count = 0;
   questionArr.forEach((str) => {
     var answer = confirm("Please tell me if you would like your password to have " + str);
     if (str === "lowercase" && answer) {
@@ -55,16 +54,8 @@ function generatePassword() {
     if (str === "special characters" && answer) {
       finalConcatinatedPwd = finalConcatinatedPwd.concat(specialChar);
     }
-
-    /**this piece of code is checking 
-     * if one character type should be selected */
-    if (!answer) {
-      count++;
-      if (count === questionArr.length) {
-        alert("You need to answer at least one of the options for your password!!");
-        return generatePassword();
-      }
-    }
+    checkOneOptionSelected(answer,questionArr);
+   
   })
 
   return randomPasswordWithLength(length, finalConcatinatedPwd);
@@ -82,5 +73,19 @@ function randomPasswordWithLength(length, chars) {
   for (var i = length; i > 0; --i)
     result += chars[Math.floor(Math.random() * chars.length)];
   return result;
+}
+
+function checkOneOptionSelected(answer, questionArr){
+   /**this piece of code is checking 
+     * if one character type should be selected */
+    var count= 0;
+    if (!answer) {
+      count++;
+      if (count === questionArr.length) {
+        alert("You need to answer at least one of the options for your password!!");
+        return generatePassword();
+
+      }
+    }
 }
 
