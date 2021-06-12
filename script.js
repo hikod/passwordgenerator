@@ -34,11 +34,13 @@ function generatePassword() {
   }
 
   var questionArr = ["lowercase", "uppercase", "numeric", "special characters"];
-/**
- * the user will be asked whether 
- * they want the options in the array above 
- * in the password while generating
- */
+  /**
+   * the user will be asked whether 
+   * they want the options in the array above 
+   * in the password while generating
+   */
+
+  var count = 0;
   questionArr.forEach((str) => {
     var answer = confirm("Please tell me if you would like your password to have " + str);
     if (str === "lowercase" && answer) {
@@ -53,8 +55,14 @@ function generatePassword() {
     if (str === "special characters" && answer) {
       finalConcatinatedPwd = finalConcatinatedPwd.concat(specialChar);
     }
+    if (!answer) {
+      count++;
+      if (count === questionArr.length) {
+        alert("You need to answer at least one of the options for your password!!");
+        return generatePassword();
+      }
+    }
   })
-
 
   return randomPasswordWithLength(length, finalConcatinatedPwd);
 }
