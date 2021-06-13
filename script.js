@@ -1,5 +1,6 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+var counter = 0;
 
 // Write password to the #password input
 function writePassword() {
@@ -18,8 +19,9 @@ function generatePassword() {
   var number = "1234567890";
   var specialChar = "!@#$%^&*(){}[]=<>/,.";
   var finalConcatinatedPwd = "";
+  var questionArr = ["lowercase", "uppercase", "numeric", "special characters"];
 
-  var length = prompt("Please enter your desired password length");
+  var desiredPasswordLength = prompt("Please enter your desired password length");
 
   /**
    * 
@@ -27,13 +29,11 @@ function generatePassword() {
    * the entered value between 8 and 128
    * if it is not, it will ask to re-enter
    */
-
-  while (length < 8 || length > 128) {
+  while (desiredPasswordLength < 8 || desiredPasswordLength > 128) {
     alert("The desired password length must be between 8 and 128");
-    length = parseInt(prompt("Please re-enter your desired password length."));
+    desiredPasswordLength = parseInt(prompt("Please re-enter your desired password length."));
   }
 
-  var questionArr = ["lowercase", "uppercase", "numeric", "special characters"];
   /**
    * the user will be asked whether 
    * they want the options in the array above 
@@ -42,6 +42,8 @@ function generatePassword() {
 
   questionArr.forEach((str) => {
     var answer = confirm("Please tell me if you would like your password to have " + str);
+
+
     if (str === "lowercase" && answer) {
       finalConcatinatedPwd = finalConcatinatedPwd.concat(lowerCase);
     }
@@ -54,11 +56,23 @@ function generatePassword() {
     if (str === "special characters" && answer) {
       finalConcatinatedPwd = finalConcatinatedPwd.concat(specialChar);
     }
-    checkOneOptionSelected(answer,questionArr);
-   
+    if (!answer) {
+      counter++;
+      console.log(counter);
+    }
   })
 
-  return randomPasswordWithLength(length, finalConcatinatedPwd);
+  /**this piece of code is checking 
+   * if one character type should be selected  
+   */
+  if (counter === questionArr.length) {
+    alert("You need to answer at least one of the options for your password!!");
+    counter = 0;
+    return generatePassword();
+  } else {
+    counter = 0;
+    return randomPasswordWithLength(desiredPasswordLength, finalConcatinatedPwd);
+  }
 }
 
 
@@ -68,24 +82,10 @@ function generatePassword() {
  * @param {*finalConcatinatedPwd string} chars 
  * @returns 
  */
-function randomPasswordWithLength(length, chars) {
+function randomPasswordWithLength(desiredPasswordLength, chars) {
   var result = '';
-  for (var i = length; i > 0; --i)
+  for (var i = desiredPasswordLength; i > 0; --i)
     result += chars[Math.floor(Math.random() * chars.length)];
   return result;
-}
-
-function checkOneOptionSelected(answer, questionArr){
-   /**this piece of code is checking 
-     * if one character type should be selected */
-    var count= 0;
-    if (!answer) {
-      count++;
-      if (count === questionArr.length) {
-        alert("You need to answer at least one of the options for your password!!");
-        return generatePassword();
-
-      }
-    }
 }
 
